@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}- Listagem de produtos{% endblock%}
+
 {% block content %}
 
 <div class="row">
@@ -34,8 +36,8 @@
                 <td class="actions">
                     <div class="btn-toolbar">
                         <div class="btn-group">
-                            <a type="button" class="btn btn-warning" href="{% url 'produto:edit' produto.pk %}"><i class="glyphicon glyphicon-pencil"></i></a>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal" data-id-prod="{{ produto.pk }}"><i class="glyphicon glyphicon-trash"></i></button>
+                            <a id="id_edit_{{ produto.pk }}" type="button" class="btn btn-warning" href="{% url 'produto:edit' produto.pk %}"><i class="glyphicon glyphicon-pencil"></i></a>
+                            <button id="id_delete_{{ produto.pk }}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal" data-id-prod="{{ produto.pk }}"><i class="glyphicon glyphicon-trash"></i></button>
                         </div>
                     </div>
                 </td>

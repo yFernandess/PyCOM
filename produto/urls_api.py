@@ -19,8 +19,6 @@ from django.urls import path
 from produto import views
 
 urlpatterns = [
-    path(r'', views.list_products, name='list'),
-    path(r'create', views.create_product, name='create'),
-    path(r'edit/<int:id_prod>', views.edit_product, name='edit'),
-    path(r'delete', views.delete_product, name='delete'),
+    path(r'', views.api_product, name='product_api'),
+    path(r'<int:id_prod>', views.api_product_id, name="prodto_api_id")
 ]

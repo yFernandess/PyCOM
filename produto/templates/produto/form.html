@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="post" action="{% url 'product:create' %}">
+<form method="post" action="">
     {% csrf_token %}
     <div class="panel panel-primary">
         <div class="panel-heading">Adicionar Produto</div>

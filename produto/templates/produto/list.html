@@ -1,10 +1,46 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Lista de produtos</h1>
-<ul>
-    {% for produto in products %}
-        <li>{{ produto }}</li>
-    {% endfor %}
-</ul>
+
+<div class="row">
+    <div class="col-md-9">
+        <h1>Listagem de produtos</h1>
+    </div>
+    <div class="col-md-3">
+    <h1 class="text-right">
+        <a id="id_add" class="btn btn-success" href="{% url "product:create" %}"><i class="glyphicon glyphicon-plus"></i> Adicionar Produto</a>
+    </h1>
+    </div>
+
+</div>
+
+<div class="clearfix"></div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th class="text-center">Código</th>
+            <th class="text-center">Nome</th>
+            <th class="text-center">Valor (R$)</th>
+            <th class="text-center actions">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for produto in products %}
+            <tr>
+                <td>{{ produto.bar_code }}</td>
+                <td>{{ produto.name }}</td>
+                <td>{{ produto.value }}</td>
+                <td class="actions">
+                    <div class="btn-toolbar">
+                        <div class="btn-group">
+                            <a type="button" class="btn btn-warning" href="%"><i class="glyphicon glyphicon-pencil"></i></a>
+                            <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

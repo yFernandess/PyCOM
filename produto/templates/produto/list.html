@@ -35,12 +35,52 @@
                     <div class="btn-toolbar">
                         <div class="btn-group">
                             <a type="button" class="btn btn-warning" href="{% url 'produto:edit' produto.pk %}"><i class="glyphicon glyphicon-pencil"></i></a>
-                            <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal" data-id-prod="{{ produto.pk }}"><i class="glyphicon glyphicon-trash"></i></button>
                         </div>
                     </div>
                 </td>
             </tr>
-        {% endfor %}
+        {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">Nenhum produto cadastrado</td>
+            </tr>
+        {% endfor%}
     </tbody>
 </table>
+
+<form method="post" action="{% url 'product:delete' %}">
+    {% csrf_token %}
+    <input type="hidden" id="id_prod" name="id_prod">
+    <div class="modal fade" tabindex="-1" role="dialog" id="delete_modal">    
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Confirmar Exclusão</h4>
+            </div>
+            <div class="modal-body">
+                <p>Deseja realmente excluir o produto?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-danger" id="delete_btn">Excluir</button>
+            </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</form>
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+        $("#delete_modal").on("show.bs.modal", function(evt) {
+            var btn = evt.relatedTarget;
+            var id_prod = $(btn).data("id-prod");
+            $("#id_prod").val(id_prod);
+        });
+    });    
+</script>
 {% endblock %}

@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from produto.forms import ProductModelForm
 from produto.models import Produto
 
+
 def list_products(request):
     products = Produto.objects.all().order_by("name", "bar_code")
 
@@ -27,3 +28,12 @@ def edit_product(request, id_prod):
             return redirect("product:list")
 
     return render(request, 'produto/form.html', {"form": form})
+
+
+def delete_product(request):
+    id_prod = request.POST.get("id_prod")
+
+    if id_prod:
+        Produto.objects.filter(pk=id_prod).delete()
+
+    return redirect("product:list")

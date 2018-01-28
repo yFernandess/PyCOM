@@ -3,6 +3,10 @@ from django.shortcuts import render
 from produto.forms import ProductModelForm
 
 def create_product(request):
-    if request.method == 'GET':
-        context = {'form': ProductModelForm()}
-        return render(request, 'produto/create.html', context)
+    form = ProductModelForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return render(request, "Redirect para lista de produtos")
+
+    return render(request, 'produto/create.html', {"form": form})

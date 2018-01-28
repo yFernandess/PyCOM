@@ -1,6 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Adicionar Produto</h1>
-
+<form method="post" action="{% url 'product:create' %}">
+    {% csrf_token %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Adicionar Produto</div>
+        <div class="panel-body">
+            <div class="panel panel-info">
+                <div class="panel-heading">Dados do Produto</div>
+                <div class="panel-body">
+                    {% include 'widgets/charfield.html' with field=form.name size='col-md-12' %}
+                    {% include 'widgets/charfield.html' with field=form.value size='col-md-6' %}
+                    {% include 'widgets/charfield.html' with field=form.bar_code size='col-md-6' %}
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <button type="reset" class="btn btn-default" id="id_clean">Limpar</button>
+            <button class="btn btn-primary" id="id_add">Cadastrar</button>
+        </div>
+    </div>
+</form>
 {% endblock %}

@@ -37,3 +37,23 @@ def delete_product(request):
         Produto.objects.filter(pk=id_prod).delete()
 
     return redirect("product:list")
+
+
+
+# API
+
+def api_product(request):
+    # POST - > create prod
+    # GET -> retornar lista de produto
+    # put -> retornar 405
+    # delete -> 405
+    pass
+
+def api_product_id(request, id_prod):
+    # get -> produto com o id
+    # post -> atualizar produto
+    # put -> atualizar produto
+    # deletar -> produto
+
+    # se não encontrou -> 404
+    pass

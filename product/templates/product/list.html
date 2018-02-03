@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}- Listagem de produtos{% endblock%}
+{% block title %}- Listagem deutos{% endblock%}
 
 {% block content %}
 
 <div class="row">
     <div class="col-md-9">
-        <h1>Listagem de produtos</h1>
+        <h1>Listagem de products</h1>
     </div>
     <div class="col-md-3">
     <h1 class="text-right">
@@ -28,16 +28,16 @@
         </tr>
     </thead>
     <tbody>
-        {% for produto in products %}
+        {% for product in products %}
             <tr>
-                <td>{{ produto.bar_code }}</td>
-                <td>{{ produto.name }}</td>
-                <td>{{ produto.value }}</td>
+                <td>{{ product.bar_code }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.value }}</td>
                 <td class="actions">
                     <div class="btn-toolbar">
                         <div class="btn-group">
-                            <a id="id_edit_{{ produto.pk }}" type="button" class="btn btn-warning" href="{% url 'produto:edit' produto.pk %}"><i class="glyphicon glyphicon-pencil"></i></a>
-                            <button id="id_delete_{{ produto.pk }}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal" data-id-prod="{{ produto.pk }}"><i class="glyphicon glyphicon-trash"></i></button>
+                            <a id="id_edit_{{ product.pk }}" type="button" class="btn btn-warning" href="{% url 'product:edit' product.pk %}"><i class="glyphicon glyphicon-pencil"></i></a>
+                            <button id="id_delete_{{ product.pk }}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_modal" data-id-prod="{{ product.pk }}"><i class="glyphicon glyphicon-trash"></i></button>
                         </div>
                     </div>
                 </td>
@@ -61,7 +61,7 @@
                 <h4 class="modal-title">Confirmar Exclusão</h4>
             </div>
             <div class="modal-body">
-                <p>Deseja realmente excluir o produto?</p>
+                <p>Deseja realmente excluir o product?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

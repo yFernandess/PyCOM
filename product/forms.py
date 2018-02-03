@@ -1,9 +1,9 @@
 from django import forms
 
-from produto.models import Produto
+from product.models import Product
 
 class ProductModelForm(forms.ModelForm):
 
     class Meta:
-        model = Produto
+        model = Product
         exclude = ()

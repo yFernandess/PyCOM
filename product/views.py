@@ -1,5 +1,9 @@
-# coding: utf-8
+# coding: utf8
 
+import json
+
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, get_object_or_404
 
 from product.forms import ProductModelForm
@@ -42,20 +46,58 @@ def delete_product(request):
 
 
 
-# API
-
+@csrf_exempt
 def api_product(request):
-    # POST - > create prod
-    # GET -> retornar lista de product
-    # put -> retornar 405
-    # delete -> 405
-    pass
+    if request.method in ["PUT", "DELETE"]:
+        resp = HttpResponse()
+        resp.status_code = 405
+        return resp
 
+    # GET > retornar lista de produto
+    if request.method == "GET":
+        products = []
+        for product in Product.objects.all().order_by("name", "bar_code"):
+            products.append(product.to_dict())
+ 
+        return HttpResponse(json.dumps(products))
+
+    # POST  > create prod
+    if request.method == "POST":
+        input_data = json.loads(request.body.decode("utf8")) or None
+        form = ProductModelForm(input_data)
+
+        if form.is_valid():
+            product = form.save()
+            resp = HttpResponse(json.dumps({"prod_id": product.pk}))
+            resp.status_code = 201
+
+            return resp
+        else:
+            resp = HttpResponse(json.dumps(form.errors))
+            resp.status_code = 400
+
+            return resp
+
+@csrf_exempt
 def api_product_id(request, id_prod):
-    # get -> product com o id
-    # post -> atualizar product
-    # put -> atualizar product
-    # deletar -> product
+    # se nao encontrou > 404
+    product = get_object_or_404(Product, pk=id_prod)
 
-    # se nao encontrou -> 404
-    pass
+     # get > produto com o id
+    if request.method == "GET":
+        return HttpResponse(json.dumps(product.to_dict()))
+
+    if request.method in ["POST", "PUT"]:
+        input_data = json.loads(request.body.decode("utf8")) or None
+        form = ProductModelForm(input_data, instance=product)
+        if form.is_valid():
+            form.save()
+            return HttpResponse(json.dumps({"prod_id": product.pk}))
+        else:
+            resp = HttpResponse(json.dumps(form.errors))
+            resp.status_code = 400
+            return resp
+    # delete > produto
+    if request.method == "DELETE":
+        product.delete()
+        return HttpResponse()

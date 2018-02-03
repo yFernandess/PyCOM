@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'core.views.index', name='index'),
     url(r'^product/', include('product.urls', namespace='product')),
+    url(r"^api/product/", include("product.urls_api", namespace='api_product')),
 ]
